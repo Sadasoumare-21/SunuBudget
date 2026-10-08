@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Dépenses</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1><span class="emoji">💰</span> <span class="gradient-text">Mon Budget & Dépenses</span></h1>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Activer le mode clair" aria-pressed="false">☀️</button>
+    </header>
+
+    <main>
+        <section id="budget-section">
+            <div class="budget-card">
+                <article class="stat stat-hero" id="rest-stat">
+                    <p class="stat-label"><span aria-hidden="true">✅</span> Reste</p>
+                    <p class="stat-value">
+                        <span class="stat-number" id="display-rest">0</span>
+                        <span class="stat-unit">FCFA</span>
+                    </p>
+                    <div class="progress-wrap" id="budget-progress-wrap">
+                        <div class="progress is-ok" id="budget-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Part du budget mensuel déjà dépensée">
+                            <span class="progress-fill" id="budget-progress-fill" style="--budget-progress: 0;"></span>
+                        </div>
+                        <span class="progress-text" id="budget-percent">0 % utilisé</span>
+                    </div>
+                    <p class="invitation" id="budget-invitation" hidden>Définis ton budget mensuel pour suivre ton reste.</p>
+                </article>
+
+                <div class="stat-row">
+                    <article class="stat">
+                        <p class="stat-label"><span aria-hidden="true">💼</span> <span id="budget-label">Budget mensuel</span></p>
+                        <p class="stat-value">
+                            <span class="stat-number" id="display-budget">0</span>
+                            <span class="stat-unit">FCFA</span>
+                        </p>
+                    </article>
+                    <article class="stat">
+                        <p class="stat-label"><span aria-hidden="true">💸</span> <span id="expenses-label">Dépenses du mois</span></p>
+                        <p class="stat-value">
+                            <span class="stat-number" id="display-expenses">0</span>
+                            <span class="stat-unit">FCFA</span>
+                        </p>
+                    </article>
+                </div>
+            </div>
+
+            <p id="budget-alert" class="message message-warning" aria-live="polite" hidden></p>
+
+            <form class="budget-form" id="budget-form">
+                <label for="input-budget">Définir mon budget mensuel</label>
+                <input type="number" id="input-budget" placeholder="Ex. 100 000" min="1" step="1" required>
+                <button type="submit" id="btn-set-budget">Enregistrer</button>
+            </form>
+        </section>
+
+        <section id="form-section">
+            <form id="formulaire">
+                <h2>Ajouter une dépense</h2>
+
+                <label class="visually-hidden" for="description">Description</label>
+                <input type="text" id="description" placeholder="Description (ex: Transport Dakar)" maxlength="100" required>
+                
+                <label class="visually-hidden" for="montant">Montant en FCFA</label>
+                <input type="number" id="montant" placeholder="Montant (ex: 1500)" min="1" step="1" required>
+
+                <label class="visually-hidden" for="categorie">Catégorie</label>
+                <select id="categorie" required>
+                    <option value="" disabled selected>Choisir une catégorie</option>
+                    <option value="Alimentation">🍔 Alimentation</option>
+                    <option value="Transport">🚕 Transport</option>
+                    <option value="Internet">📱 Internet</option>
+                    <option value="Logement">🏠 Logement</option>
+                    <option value="Études">🎓 Études</option>
+                    <option value="Loisirs">🎮 Loisirs</option>
+                    <option value="Autre">💰 Autre</option>
+                </select>
+                <small class="field-hint">La description sera vérifiée : en cas d’incohérence, corrigez la catégorie avant l’enregistrement.</small>
+
+                <label class="visually-hidden" for="date">Date de la dépense</label>
+                <input type="date" id="date" required>
+
+                <button type="submit">Ajouter la dépense</button>
+                <p id="message" class="message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="filter-section">
+            <h2>Recherche et Filtres</h2>
+            <input type="search" id="search-input" placeholder="Rechercher une dépense..." aria-label="Rechercher une dépense">
+
+            <select id="filter-category">
+                <option value="Toutes">Toutes les catégories</option>
+                <option value="Alimentation">🍔 Alimentation</option>
+                <option value="Transport">🚕 Transport</option>
+                <option value="Internet">📱 Internet</option>
+                <option value="Logement">🏠 Logement</option>
+                <option value="Études">🎓 Études</option>
+                <option value="Loisirs">🎮 Loisirs</option>
+                <option value="Autre">💰 Autre</option>
+            </select>
+        </section>
+
+        <section id="list-section">
+            <h2>Mes dépenses</h2>
+            <p id="month-name" class="month-name"></p>
+            <p id="list-note" class="field-hint">Affichage du mois en cours.</p>
+            <div id="affichage"></div>
+        </section>
+    </main>
+
+<script src="script.js"></script>
+</body>
+</html>
